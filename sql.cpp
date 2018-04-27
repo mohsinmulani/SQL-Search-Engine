@@ -1,11 +1,7 @@
-#include<iostream>
-#include<string>
-#include<fstream>
-#include<vector>
-#include<algorithm>
-#include<stdlib.h>
-#include <sstream>
 
+#include <bits/stdc++.h>
+#include <string>
+#include <string.h>
 using namespace std;
 
 typedef struct table
@@ -809,18 +805,23 @@ void display_result(string tabname,table query_table,vector < string > colms,int
 
 void readmdfile()
 {
+	// cout<<"hello staart"<<endl;
     string line;
 	int begin_flag=0,col_flag=0,i;
     ifstream mdfile("metadata.txt");
 	while(getline(mdfile, line))
     {
-   		//cout<<line<<endl;
-   		if(line.compare("<begin_table>") == 0)
+   		// cout<<line<<endl;
+   		string pattern="\f\n\r\t\v";
+   		line=line.substr(0,line.find_last_not_of(pattern)+1);
+   		if(line.find("<begin_table>") == 0)
         {
         	begin_flag=1;
+        	// cout<<"hello inside begin\n";
         }
-        else if(line.compare("<end_table>") == 0)
+        else if(line.find("<end_table>") == 0)
         {
+        		// cout<<"hello inside end\n";
         	string tabline,filename;
         	filename=Alltables[table_count].table_name+".csv";
         	ifstream tabfile(filename.c_str());
@@ -839,6 +840,7 @@ void readmdfile()
         	}
         	tabfile.close();
         	col_flag=0;
+        	// cout<<Alltables.size()<<"  "<<Alltables[table_count].table_name<<endl;
         }
         else if(begin_flag==1)
         {
@@ -856,8 +858,9 @@ void readmdfile()
       		Alltables[table_count].column_names.push_back(line);
        		Alltables[table_count].col_count++;
         }
+        // cout<<"hello inside "<<line<<endl;
    	} 
-   	
+   	// cout<<"hello"<<endl;
 	mdfile.close();
 }
 int same(string left_operand,string right_operand)
@@ -1290,8 +1293,10 @@ int main(int argc, char *argv[])
 		{
 			query=query.substr(0,pos);
 		}
-		//cout<<query;
+		// cout<<query;
 		parse(query);
 	}
     return 0;
 }
+
+
