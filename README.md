@@ -24,3 +24,7 @@ Mini Sql Engine - Handles Select, Aggregate, Project, Join Operations
 Misc
 
 csv files for tables
+Run Follwing Comamnds :
+g++ sql.cpp
+.\a.out "select * from table1;"
+
